@@ -9,7 +9,6 @@ import  Form  from '@components/Form';
     const router=useRouter();
     const {data:session}= useSession();
     const [submiting,setSubmiting] = useState(false);
-
     const [post,setPost] = useState({prompt:'',tag:'',});
 
     const createPrompt = async (e)=>{

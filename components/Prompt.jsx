@@ -2,11 +2,16 @@
 import {useState} from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
-// import { useSession } from 'next-auth/react';
-// import {usePathname,useRouter} from 'next/navigation';
+import {usePathname,useRouter} from 'next/navigation';
 
-export const PromptCard = ({post,handleTagClick,handleEdit,handleEdit}) => {
+export const PromptCard = ({post,handleTagClick,handleEdit,handleDelete}) => {
   const [copied,setCopied]=useState("");
+
+  const handleCopy = () => {
+     setCopied(post.prompt);
+     navigator.clipboard.writeText(post.prompt);
+     setTimeout(()=>setCopied(""),3000)
+  }
   return (
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-5">
@@ -25,9 +30,9 @@ export const PromptCard = ({post,handleTagClick,handleEdit,handleEdit}) => {
               <h3 className='font-satoshi font-semibold text-grey-900'>
                {post.creator.username}
               </h3>
-              <h3 className='font-inter text-sm text-gray-500'>
+              <p className='font-inter text-sm text-gray-500'>
                 {post.creator.email}
-              </h3>
+              </p>
           </div>
          
          </div>
@@ -43,7 +48,9 @@ export const PromptCard = ({post,handleTagClick,handleEdit,handleEdit}) => {
       <p className='my-4 font-satoshi text-sm text-grey-700'>
         {post.prompt}
       </p>
-      <p className='font-inter text-sm blue_gradient cusror-pointer'>
+      <p className='font-inter text-sm blue_gradient cusror-pointer'
+      onClick={()=>handleTagClick && handleTagClick(post.tag)}
+      >
         {post.tag}
       </p>
     </div>
