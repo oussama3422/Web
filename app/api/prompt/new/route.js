@@ -3,11 +3,12 @@ import Prompt  from "@models/prompt";
 
 
 
-export const POST = async (req,res) => {
-    console.log("req.json() :::> "+req.json());
-    const {userId,prompt,tag} = await req.json();
+export const POST = async (req) => {
     try{
         await connectToMongoDb();
+        const {userId,prompt,tag} = await req.json();
+        console.log("User Id"+userId);
+        console.log("prompt"+prompt);
         const newPrompt=new Prompt({creator:userId,prompt,tag});
         await newPrompt.save();
         return new Response(JSON.stringify(newPrompt),{status:201});

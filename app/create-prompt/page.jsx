@@ -7,32 +7,37 @@ import  Form  from '@components/Form';
 
  const CreatePrompt = () => {
     const router=useRouter();
-    const {data:session}= useSession();
-    const [submiting,setSubmiting] = useState(false);
+    const {data: session}= useSession();
+    const [submitting,setSubmitting] = useState(false);
     const [post,setPost] = useState({prompt:'',tag:'',});
 
     const createPrompt = async (e)=>{
         e.preventDefault();
-        setSubmiting(true);
+        setSubmitting(true);
         try{
-        const response = await fetch("/api/prompt/new",{
-            method: 'POST',
-            body: JSON.stringify({
-                prompt:post.prompt,
-                userId:session?.user.id,
-                tag:post.tag
-            })
-        })
-        console.log("response:::>"+response.body);
-        if(response.ok){
-            router.push('/')
-        }
+            const response = await fetch("/api/prompt/new",{
+                method: 'POST',
+                body: JSON.stringify({
+                    prompt: post.prompt,
+                    userId: session?.user.id,
+                    tag: post.tag
+                })
+            });
+            
+            if (response.ok) {
+                const responseData = await response.json();
+                console.log("response:::>", responseData);
+                router.push('/');
+            } else {
+                console.log("error:::>", response.status);
+            }
+            
         }catch(error)
         {
             console.log("error:::>"+error);
 
         }finally{
-            setSubmiting(false);
+            setSubmitting(false);
         }
     }
   return (
@@ -40,7 +45,7 @@ import  Form  from '@components/Form';
        type="Create"
        post={post}
        setPost={setPost}
-       submiting={submiting}
+       submiting={submitting}
        handleSubmit={createPrompt}
     />
   )
