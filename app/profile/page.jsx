@@ -7,11 +7,12 @@ import Profile from '@components/profile';
 const MyProfile = () => {
     const [posts,setPosts]=useState([]);
     const {data:session} = useSession();
-    const route = useRouter();
-    const handleEdit = async()=>{
+    const router = useRouter();
 
+    const handleEdit = async(post)=>{
+      router.push(`/update-prompt?id=${post._id}`)
     }
-    const handleDelete = async()=>{
+    const handleDelete = async(post)=>{
 
     }
 
