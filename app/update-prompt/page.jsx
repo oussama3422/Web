@@ -26,25 +26,20 @@ import  Form  from '@components/Form';
     const updatePrompt = async (e)=>{
         e.preventDefault();
         setSubmitting(true);
-
         if(!promptId) return alert("Prompt ID not found");
 
         try{
-            const response = await fetch(`/api/prompt/${promptId} `,{
+            const response = await fetch(`/api/prompt/${promptId}`,{
                 method: 'PATCH',
                 body: JSON.stringify({
                     prompt: post.prompt,
                     tag: post.tag
                 })
-            });
+            })
             
             if (response.ok) {
-                const responseData = await response.json();
-                console.log("response:::>", responseData);
                 router.push('/');
-            } else {
-                console.log("error:::>", response.status);
-            }
+            } 
             
         }catch(error)
         {

@@ -15,11 +15,10 @@ export const GET = async(req,{params})=>{
 
 //PATCH (update)
 export const PATCH = async(req,{params})=>{
-    const {prompt,tag} = await req.json();
-
-    try{
+  const {prompt,tag} = await req.json();
+  try{
       await connectToMongoDb();
-      const existingPrompt = Prompt.findById(params.id);
+      const existingPrompt = await Prompt.findById(params.id);
       if(!existingPrompt) return new Response("Prompt not found",{status:404});
       existingPrompt.prompt=prompt;
       existingPrompt.tag = tag;
