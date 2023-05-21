@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import {usePathname,useRouter} from 'next/navigation';
 
-const PromptCard = ({post,handleTagClick,handleEdit,handleDelete}) => {
+const PromptCard = ({post,handleTagClick,handleEdit,handleDelete,clickOtherProfile}) => {
   const [copied,setCopied]=useState("");
   const {data:session} = useSession();
   const router=useRouter();
@@ -27,13 +27,14 @@ const PromptCard = ({post,handleTagClick,handleEdit,handleDelete}) => {
             height={40}
             width={40}
             className='rounded-full object-contain'
+            onClick={clickOtherProfile}
           />
 
           <div className='flex flex-col'>
-              <h3 className='font-satoshi font-semibold text-grey-900'>
+              <h3 className='font-satoshi font-semibold text-gray-900'>
                {post.creator.username}
               </h3>
-              <p className='font-inter text-sm text-gray-500'>
+              <p className='font-inter text-sm text-gray-900'>
                 {post.creator.email}
               </p>
           </div>
@@ -52,8 +53,9 @@ const PromptCard = ({post,handleTagClick,handleEdit,handleDelete}) => {
         {post.prompt}
       </p>
       <p 
-        className='font-inter text-sm blue_gradient cusror-pointer'
-        onClick={()=>handleTagClick && handleTagClick(post.tag)}>{post.tag}
+        className='font-inter text-sm blue_gradient cursor-pointer'
+        onClick={()=>handleTagClick && handleTagClick(post.tag)}>
+          {post.tag}
       </p>
 
       {session?.user.id === post.creator._id && pathName === '/profile' && (
