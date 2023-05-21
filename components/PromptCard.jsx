@@ -9,7 +9,11 @@ const PromptCard = ({post,handleTagClick,handleEdit,handleDelete,clickOtherProfi
   const {data:session} = useSession();
   const router=useRouter();
   const pathName=usePathname();
-
+  
+  const handleProfileClick = () => {
+    // clickOtherProfile(post.creator.userId); // Pass the appropriate userId to navigate to the correct profile
+    session?.user.id === post.creator._id ?router.push(`/`): router.push(`/profile/${post.creator._id}`);
+  };
   const handleCopy = () => {
      setCopied(post.prompt);
      navigator.clipboard.writeText(post.prompt);
@@ -27,7 +31,7 @@ const PromptCard = ({post,handleTagClick,handleEdit,handleDelete,clickOtherProfi
             height={40}
             width={40}
             className='rounded-full object-contain'
-            onClick={clickOtherProfile}
+            onClick={handleProfileClick}
           />
 
           <div className='flex flex-col'>

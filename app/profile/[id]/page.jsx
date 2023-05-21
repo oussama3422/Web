@@ -1,12 +1,10 @@
 'use client';
 import {useState,useEffect} from 'react';
-import {useRouter,useSearchParams} from 'next/navigation';
+import {useSearchParams} from 'next/navigation';
 import Profile from '@components/profile';
 
 const UserProfile = ({params}) => {
-    const router = useRouter();
     const searchParams=useSearchParams();
-    const userName = searchParams.get("name");
 
     const [userPosts,setUserPosts] = useState([]);
 
@@ -22,9 +20,9 @@ const UserProfile = ({params}) => {
     },[params.id])
   return (
     <Profile
-     name="My"
-     desc= "Welcome to your personalized profile page"
-     data={posts}
+     name='other'
+     desc= "User Profile"
+     data={userPosts}
     />
   )
 }

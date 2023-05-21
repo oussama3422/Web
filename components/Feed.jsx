@@ -3,7 +3,7 @@ import React from 'react'
 import {useState,useEffect} from 'react';
 import PromptCard from './PromptCard';
 
-const PromptCardList = ({data,handleTagClick})=>{
+const PromptCardList = ({data,handleTagClick })=>{
    return( 
    <div className='mt-16 prompt_layout'>
       {data.map((post)=>(
@@ -34,6 +34,7 @@ export const Feed = () => {
     return posts.filter(
       (item)=>
       regex.test(item.creator.username) ||
+      regex.test(item.creator.email) ||
       regex.test(item.tag) ||
       regex.test(item.prompt)
       );
@@ -75,7 +76,7 @@ export const Feed = () => {
       <form className='relative w-full flex-center'>
      <input 
         type="text"
-        placeholder='Search for a tag or a useraname'
+        placeholder='Search for a tag or a useraname or email'
         value={searchText}
         onChange={handleSearchChange}
         required
@@ -85,7 +86,7 @@ export const Feed = () => {
       <PromptCardList
         data={displayedPosts}
         handleTagClick={handleTagClick}
-       />
+      />
     </section>
   )
 }
