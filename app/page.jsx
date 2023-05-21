@@ -6,7 +6,7 @@ const Home = () => {
     <section className='w-full flex-center flex-col'>
       
      <h1 className='head_text text-center'>
-      Disover & Share
+      Discover & Share
       <br className='max-md:hidden'/>
       <span className='orange_gradient text-center'>AI-Powered Prompts</span>
       <p className='desc text-center'>
